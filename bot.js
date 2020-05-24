@@ -13,15 +13,15 @@ bot.on('ready', () => {
 
 /* Handle Commands */
 bot.on('message', msg => {
-    if (msg.content.split(" ")[0] === '!weather') {
+    if (msg.content.split(" ").length > 1 && commands.commands.hasOwnProperty(msg.content.split(" ")[0])) {
         var command = msg.content.split(" ")[0]
-        var weatherArg = msg.content.split(" ")[1];
-        commands.commands[command].run(msg, weatherArg);
-
-    } else if (msg.content.split(" ")[0] === '!drinks') {
-        var command = msg.content.split(" ")[0]
-        var drinkArg = msg.content.split(" ")[1];
-        commands.commands[command].run(msg, drinkArg);
+        var arg = msg.content.split(" ")[1];
+        commands.commands[command].run(msg, arg);
+    } else if ((msg.content.includes('thanks') || msg.content.includes('thx') || msg.content.includes('thank you'))
+        && (msg.content.includes('bobot') || msg.content.includes('bobot fett') || msg.content.includes('fett'))) {
+        const phrase = Math.floor(Math.random * 2)
+        if (phrase === 0) msg.reply('i have spoken.')
+        else msg.reply('this is the way.')
     }
     else {
         var command = msg.content
